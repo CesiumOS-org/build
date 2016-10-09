@@ -582,9 +582,29 @@ function print_lunch_menu()
 {
     local uname=$(uname)
     echo
-    echo "You're building on" $uname
-    echo
-    echo "Lunch menu... pick a combo:"
+
+    echo ""
+    tput setaf 1;
+    tput bold;
+    echo " ▄████▄  ▓█████   ██████  ██▓ █    ██  ███▄ ▄███▓ ▒█████    ██████ "
+    echo "▒██▀ ▀█  ▓█   ▀ ▒██    ▒ ▓██▒ ██  ▓██▒▓██▒▀█▀ ██▒▒██▒  ██▒▒██    ▒ "
+    echo "▒▓█    ▄ ▒███   ░ ▓██▄   ▒██▒▓██  ▒██░▓██    ▓██░▒██░  ██▒░ ▓██▄   "
+    echo "▒▓▓▄ ▄██▒▒▓█  ▄   ▒   ██▒░██░▓▓█  ░██░▒██    ▒██ ▒██   ██░  ▒   ██▒"
+    echo "▒ ▓███▀ ░░▒████▒▒██████▒▒░██░▒▒█████▓ ▒██▒   ░██▒░ ████▓▒░▒██████▒▒"
+    echo "░ ░▒ ▒  ░░░ ▒░ ░▒ ▒▓▒ ▒ ░░▓  ░▒▓▒ ▒ ▒ ░ ▒░   ░  ░░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░"
+    echo "  ░  ▒    ░ ░  ░░ ░▒  ░ ░ ▒ ░░░▒░ ░ ░ ░  ░      ░  ░ ▒ ▒░ ░ ░▒  ░ ░"
+    echo "░           ░   ░  ░  ░   ▒ ░ ░░░ ░ ░ ░      ░   ░ ░ ░ ▒  ░  ░  ░  "
+    echo "░ ░         ░  ░      ░   ░     ░            ░       ░ ░        ░  "
+    echo "░                                                                  "
+
+    tput sgr0;
+    echo ""
+    echo "                      Welcome to the device menu                      "
+    echo ""
+    tput bold;
+    echo "     Below are all the devices currently available to be compiled     "
+    tput sgr0;
+    echo ""
 
     local i=1
     local choice
@@ -624,7 +644,10 @@ function lunch()
         fi
     else
         print_lunch_menu
-        echo -n "Which would you like? "
+        tput setaf 2;
+        tput bold;
+        echo -n "Go ahead and pick a number or enter lunch combo(cesium_device-userdebug)... "
+        tput sgr0;
         read answer
         if ! (echo -n $answer | grep -q -e "^[0-9][0-9]*$")
         then
@@ -676,8 +699,9 @@ function lunch()
 
     if [ -z "$product" ]
     then
-        echo
-        echo "Invalid lunch combo: $selection"
+        echo ""
+        echo "Come on man, pay attention to what you're doing"
+        echo ""
         return 1
     fi
 
