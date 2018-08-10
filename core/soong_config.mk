@@ -210,6 +210,8 @@ $(foreach namespace,$(SOONG_CONFIG_NAMESPACES),\
   $(call end_json_map))
 $(call end_json_map)
 
+include vendor/cesium/build/soong/soong_config.mk
+
 $(call add_json_bool, EnforceProductPartitionInterface,  $(PRODUCT_ENFORCE_PRODUCT_PARTITION_INTERFACE))
 
 $(call add_json_bool, InstallExtraFlattenedApexes, $(PRODUCT_INSTALL_EXTRA_FLATTENED_APEXES))
