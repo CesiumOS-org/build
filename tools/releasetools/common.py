@@ -529,18 +529,7 @@ class BuildInfo(object):
 
   def CalculateFingerprint(self):
     if self.oem_props is None:
-      try:
-        return self.GetBuildProp("ro.build.fingerprint")
-      except ExternalError:
-        return "{}/{}/{}:{}/{}/{}:{}/{}".format(
-            self.GetBuildProp("ro.product.brand"),
-            self.GetBuildProp("ro.product.name"),
-            self.GetBuildProp("ro.product.device"),
-            self.GetBuildProp("ro.build.version.release"),
-            self.GetBuildProp("ro.build.id"),
-            self.GetBuildProp("ro.build.version.incremental"),
-            self.GetBuildProp("ro.build.type"),
-            self.GetBuildProp("ro.build.tags"))
+      return self.GetBuildProp("ro.build.fingerprint")
     return "%s/%s/%s:%s" % (
         self.GetOemProperty("ro.product.brand"),
         self.GetOemProperty("ro.product.name"),
