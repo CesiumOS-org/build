@@ -4302,8 +4302,34 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 	@echo "Package OTA: $@"
 	$(call build-ota-package-target,$@,-k $(KEY_CERT_PAIR) --output_metadata_path $(INTERNAL_OTA_METADATA))
 
-.PHONY: otapackage
+TARGET_PACKAGE := $(PRODUCT_OUT)/$(CESIUM_MOD_VERSION).zip
+
+.PHONY: otapackage bacon cesium
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
+bacon: otapackage
+bacon: cesium
+cesium: otapackage
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(TARGET_PACKAGE) > $(TARGET_PACKAGE).md5sum
+	@echo -e ${CL_RST} ""
+	echo -e ${CL_RED}" ▄████▄  ▓█████   ██████  ██▓ █    ██  ███▄ ▄███▓ ▒█████    ██████  "${CL_RED}
+	echo -e ${CL_CYN}"▒██▀ ▀█  ▓█   ▀ ▒██    ▒ ▓██▒ ██  ▓██▒▓██▒▀█▀ ██▒▒██▒  ██▒▒██    ▒  "${CL_RST}
+	echo -e ${CL_RED}"▒▓█    ▄ ▒███   ░ ▓██▄   ▒██▒▓██  ▒██░▓██    ▓██░▒██░  ██▒░ ▓██▄    "${CL_RED}
+	echo -e ${CL_CYN}"▒▓▓▄ ▄██▒▒▓█  ▄   ▒   ██▒░██░▓▓█  ░██░▒██    ▒██ ▒██   ██░  ▒   ██▒ "${CL_RST}
+	echo -e ${CL_RED}"▒ ▓███▀ ░░▒████▒▒██████▒▒░██░▒▒█████▓ ▒██▒   ░██▒░ ████▓▒░▒██████▒▒ "${CL_RED}
+	echo -e ${CL_CYN}"░ ░▒ ▒  ░░░ ▒░ ░▒ ▒▓▒ ▒ ░░▓  ░▒▓▒ ▒ ▒ ░ ▒░   ░  ░░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░ "${CL_RST}
+	echo -e ${CL_RED}"  ░  ▒    ░ ░  ░░ ░▒  ░ ░ ▒ ░░░▒░ ░ ░ ░  ░      ░  ░ ▒ ▒░ ░ ░▒  ░ ░ "${CL_RED}
+	echo -e ${CL_CYN}"░           ░   ░  ░  ░   ▒ ░ ░░░ ░ ░ ░      ░   ░ ░ ░ ▒  ░  ░  ░   "${CL_RST}
+	echo -e ${CL_RED}"░ ░         ░  ░      ░   ░     ░            ░       ░ ░        ░   "${CL_RED}
+	echo -e ${CL_CYN}"░                                                                   "${CL_RST}
+	@echo -e ${CL_RST} "" ${CL_RST}
+	@echo -e ${CL_BLD}${CL_RED}"===============================-Package complete-==============================="${CL_RED}
+	@echo -e ${CL_BLD}${CL_YLW}"Zip: "${CL_YLW} $(TARGET_PACKAGE)${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"MD5: "${CL_YLW}" `cat $(TARGET_PACKAGE).md5sum | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"Size:"${CL_YLW}" `du -sh $(TARGET_PACKAGE) | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"Integer Value:"${CL_YLW}" `wc -c $(TARGET_PACKAGE) | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_YLW}"TimeStamp:"${CL_YLW}" `cat $(PRODUCT_OUT)/system/build.prop | grep ro.build.date.utc | cut -d'=' -f2 | awk '{print $$1}' `"${CL_RST}
+	@echo -e ${CL_BLD}${CL_RED}"================================================================================"${CL_RST}
 
 ifeq ($(BOARD_BUILD_RETROFIT_DYNAMIC_PARTITIONS_OTA_PACKAGE),true)
 name := $(TARGET_PRODUCT)
