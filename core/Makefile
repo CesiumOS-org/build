@@ -1933,7 +1933,7 @@ define build-recoveryramdisk
 endef
 else
 define build-recoveryramdisk
-  $(hide) ./vendor/aosp/tools/changelog.sh
+  $(hide) ./vendor/cesium/tools/changelog.sh
   $(hide) mv $(PRODUCT_OUT)/Changelog.txt $(PRODUCT_OUT)/$(CESIUM_MOD_VERSION).zip.txt
   @echo ----- Making recovery image ------
   $(hide) mkdir -p $(TARGET_RECOVERY_OUT)
@@ -2361,7 +2361,7 @@ endif
 
 # $(1): output file
 define build-systemimage-target
-  $(hide) ./vendor/aosp/tools/changelog.sh
+  $(hide) ./vendor/cesium/tools/changelog.sh
   $(hide) mv $(PRODUCT_OUT)/Changelog.txt $(PRODUCT_OUT)/$(CESIUM_MOD_VERSION).zip.txt
   @echo "Target system fs image: $(1)"
   $(call create-system-vendor-symlink)
