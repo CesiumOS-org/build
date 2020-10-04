@@ -22,12 +22,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/media_product.mk)
 
 # /product packages
 PRODUCT_PACKAGES += \
-    Camera2 \
-    Contacts \
-    DeskClock \
-    Gallery2 \
-    LatinIME \
-    Music \
     OneTimeInitializer \
     preinstalled-packages-platform-handheld-product.xml \
     SettingsIntelligence \
