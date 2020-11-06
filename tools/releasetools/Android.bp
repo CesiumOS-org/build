@@ -187,6 +187,7 @@ python_library_host {
         "bsdiff",
         "imgdiff",
         "minigzip",
+        "list",
         "lz4",
         "mkbootfs",
         "signapk",
